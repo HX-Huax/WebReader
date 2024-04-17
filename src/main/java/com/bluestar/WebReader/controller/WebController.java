@@ -1,14 +1,28 @@
 package com.bluestar.WebReader.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.nio.file.Files;
 
 @RestController
 @RequestMapping("/api/v1")
 public class WebController {
-
     @RequestMapping("/ping")
-    public String index() {return "Hello World";}
+    public String Ping() {return "Pong!";}
+    @GetMapping(value = "/novel/{name}/{page}", produces = MediaType.TEXT_HTML_VALUE+";charset=UTF-8")
+    public String getFile(@PathVariable("name") String name, @PathVariable("page") String page) throws IOException {
+        Resource resource = new ClassPathResource("static/nove/"+name+"_"+page+".html");
+        byte[] fileBytes = Files.readAllBytes(resource.getFile().toPath());
+        return new String(fileBytes);
+    }
+    @PostMapping("/login")
+    public String Login(){
 
+        return "login";
+    }
 
 }
