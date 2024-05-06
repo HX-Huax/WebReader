@@ -19,10 +19,5 @@ public class WebController {
         byte[] fileBytes = Files.readAllBytes(resource.getFile().toPath());
         return new String(fileBytes);
     }
-    @PostMapping("/login")
-    public String Login(){
-
-        return "login";
-    }
 
 }
